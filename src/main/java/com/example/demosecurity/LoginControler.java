@@ -20,11 +20,11 @@ public class LoginControler {
         return "strona";
     }
 
-    @GetMapping("/zaszyfruj")
-    @ResponseBody
-    public String zaszyfruj(@RequestParam String input) {
-        PasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(input);
-        return hashedPassword;
-    }
+//    @GetMapping("/zaszyfruj")
+//    @ResponseBody
+//    public String zaszyfruj(@RequestParam String input) {
+//        PasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
+//        String hashedPassword = passwordEncoder.encode(input);
+//        return hashedPassword;
+//    }
 }

@@ -26,8 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery(
                         "select username,password, enabled from user where username=?")
                 .authoritiesByUsernameQuery(
-                        "select username, role from user_role where username=?")
-                .passwordEncoder(new BCryptPasswordEncoder());
+                        "select username, role from user_role where username=?");
+//                .passwordEncoder(new BCryptPasswordEncoder());
     }
 
 //    POZOSTALA KONFIGURACJA
@@ -41,7 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login");
+                .loginPage("/login")
+                .and()
+                    .csrf().disable();
     }
 }
 
