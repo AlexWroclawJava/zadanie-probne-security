@@ -10,8 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
 
-// w application.properties na początku jako twardo ustalone haslo bylo ponizej
-// security.user.password=Dancing17
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -20,9 +18,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("dataSource")
     private DataSource dataSource;
 
-    @Autowired
-    public void configureAuthentification(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource)
+    @Override
+    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
                         "select username,password, enabled from user where username=?")
                 .authoritiesByUsernameQuery(
@@ -32,16 +30,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    POZOSTALA KONFIGURACJA
         @Override
-    protected void configure (HttpSecurity http) throws Exception {
-        http
+        protected void configure (HttpSecurity http) throws Exception {
+            http
                 .authorizeRequests()
+                    .antMatchers("/").permitAll()
                     .antMatchers("/login").permitAll()
+                    .antMatchers("/register").permitAll()
+                    .antMatchers("/profil").hasAnyRole("ADMIN", "USER")
                     .antMatchers("/img/**").permitAll()
-                    .antMatchers("/zaszyfruj").permitAll()
+                    .antMatchers("/logmeout").permitAll()
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                    .and()
+                    .logout()
+                    .logoutUrl("/logmeout")
+                    .logoutSuccessUrl("/login")
+                    .permitAll()
                 .and()
                     .csrf().disable();
     }

@@ -1,13 +1,26 @@
-<div style="width: 500px; margin: auto; margin-top: 300px;
-text-align:center">
-    <h1>LOGOWANIE</h1>
+<!DOCTYPE html>
 
-    <img src="img/starcraft2.JPG"/>
+<html xmlns:th="http://www.thymeleaf.org">
 
-    <form action="/login" method="post">
-        Login:<br/>
-        <input type="text" name="username"/><br/>
-        Hasło:<br/>
-        <input type="password" name="password"/><br/>
-        <input type="submit" value="Zaloguj"/></form>
-</div>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+</head>
+
+<body>
+
+<h1>Witamy na stronie miłośników gry Starcraft 2</h1>
+
+        <img src="img/starcraftII.JPG"/>
+
+<form action="/login"  method="post">Login:<br/>
+    <input type="text" name="username"/>
+    <br/>Hasło:<br/><input type="text" name="password"/>
+    <!--<br/><input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+    <input type="submit" value="Zaloguj"/></form>
+
+</body>
+
+</html>
+
+

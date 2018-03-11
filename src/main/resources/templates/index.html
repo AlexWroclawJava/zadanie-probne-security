@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+
+    <style type="text/css">
+
+        .header {
+            background: goldenrod   ;
+            height: 100px;
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            width: 800px;
+            margin: auto;
+        }
+        .content {
+            background: antiquewhite;
+            height: 100%;
+            color: black;
+            list-style-type: georgian;
+        }
+        .links a {
+            background: white;
+            padding: 10px;
+            color: dodgerblue;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h1> Homepage Aplikacji</h1>
+
+<p th:if="${username != null}" th:text="'ser zalogowany jako ' + ${username}"></p>
+
+        <a href="/register">Zarejestruj></a>
+        <a href="/login">Zaloguj></a>
+        <a href="/profil">Edycja usera></a>
+
+</body>
+
+</html>
