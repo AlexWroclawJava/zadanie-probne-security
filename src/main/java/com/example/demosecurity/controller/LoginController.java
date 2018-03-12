@@ -1,7 +1,9 @@
 package com.example.demosecurity.controller;
 
 import com.example.demosecurity.database.UserRepository;
+import com.example.demosecurity.database.UserRoleRepository;
 import com.example.demosecurity.model.User;
+import com.example.demosecurity.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,18 +19,15 @@ public class LoginController {
 
     @Autowired
     private UserRepository userRepository;
+    private UserRoleRepository userRoleRepository;
 
-    public LoginController(UserRepository userRepository) {
+    public LoginController(UserRepository userRepository, UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @GetMapping("/login")
     public String login() {
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String zaloguj() {
         return "login";
     }
 
@@ -44,9 +43,16 @@ public class LoginController {
             String username = principal.getName();
             model.addAttribute("username", username);
         }
-
         return "index";
     }
+
+
+    @GetMapping("/lista")
+    public String zarejestrowani(Principal principal, Model model) {
+
+        return "informacje";
+    }
+
 
     @GetMapping("/profil")
     public String edytowanie(Model model, Principal principal) {
@@ -64,7 +70,7 @@ public class LoginController {
                 newUser.setLastname(user.getLastname());
                 newUser.setPhone(user.getPhone());
                 userRepository.save(newUser);
-                return "/";
+                return "index";
            }
 
     @GetMapping("/register")
@@ -76,12 +82,16 @@ public class LoginController {
     @PostMapping("/register")
     public String rejestruj(Model model, User user) {
         User newUser = new User();
+        UserRole role = new UserRole();
+        role.setUsername(newUser.getUsername());
+        role.setRole("ROLE_USER");
         newUser.setUsername(user.getUsername());
         newUser.setPassword(user.getPassword());
         newUser.setName(user.getName());
         newUser.setLastname(user.getLastname());
         newUser.setPhone(user.getPhone());
         model.addAttribute("user", newUser);
+        userRoleRepository.save(role);
         userRepository.save(newUser);
         return "index";
     }

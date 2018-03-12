@@ -18,17 +18,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("dataSource")
     private DataSource dataSource;
 
-    @Override
-    public void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery(
-                        "select username,password, enabled from user where username=?")
-                .authoritiesByUsernameQuery(
-                        "select username, role from user_role where username=?");
-//                .passwordEncoder(new BCryptPasswordEncoder());
-    }
+        @Override
+        public void configure(AuthenticationManagerBuilder builder) throws Exception {
+                builder.jdbcAuthentication().dataSource(dataSource)
+                                .usersByUsernameQuery(
+                                    "select username,password, enabled from user where username=?")
+                                .authoritiesByUsernameQuery(
+                                    "select username, role from user_role where username=?")
+                                .passwordEncoder(new BCryptPasswordEncoder());
+            }
 
-//    POZOSTALA KONFIGURACJA
         @Override
         protected void configure (HttpSecurity http) throws Exception {
             http
@@ -36,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/").permitAll()
                     .antMatchers("/login").permitAll()
                     .antMatchers("/register").permitAll()
-                    .antMatchers("/profil").hasAnyRole("ADMIN", "USER")
+                    .antMatchers("/profil").permitAll()
                     .antMatchers("/img/**").permitAll()
                     .antMatchers("/logmeout").permitAll()
                     .anyRequest().authenticated()

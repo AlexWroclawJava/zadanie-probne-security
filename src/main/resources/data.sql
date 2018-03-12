@@ -1,7 +1,7 @@
 INSERT INTO USER(id, username, password, enabled) values(1, 'user','user', true);
 INSERT INTO USER(id, username, password, enabled) values(2, 'admin','admin', true);
-INSERT INTO USER_ROLE(username, role) values('admin', 'ROLE_ADMIN');
-INSERT INTO USER_ROLE(username, role) values('user', 'ROLE_USER');
+INSERT INTO USER_ROLE(id, username, role) values(1,'admin', 'ROLE_ADMIN');
+INSERT INTO USER_ROLE(id, username, role) values(2, 'user', 'ROLE_USER');
 
 INSERT INTO USER(id, username, password, name, lastname, phone, enabled) VALUES(3, 'alex', 'usera', 'Alex', 'Szlachcic', 662662582, true);
 INSERT INTO USER(id, username, password, name, lastname, phone, enabled) VALUES(4, 'konrad', 'userk', 'Konrad', 'Wudkowski',662652582, true);
